@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert Student Records</title>
+
+<style type="text/css">
+form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 20px;
+	border: 1px solid;
+	padding: 20px;
+	margin: 30px 0;
+	width: 20%;
+}
+</style>
+</head>
+<body>
+	<a href="/"><button>Go to Home</button></a>
+	<form action="/insert" method="post">
+		<div class="info">
+			Name : <input name="name" type="text" required="required">
+		</div>
+		<div class="info">
+			Mobile : <input name="mobile" type="tel" required="required">
+		</div>
+		<div class="info">
+			Gender : Male<input name="gender" type="radio" value="Male"
+				required="required"> Female<input name="gender" type="radio"
+				value="Female" required="required">
+		</div>
+		<div class="info">Marks</div>
+		<div class="info">
+			Maths: <input name="math" type="number" required="required">
+		</div>
+		<div class="info">
+			Physics : <input name="physics" type="number" required="required">
+		</div>
+		<div class="info">
+			Chemistry : <input name="chemistry" type="number" required="required">
+		</div>
+		<div class="info">
+			English : <input name="english" type="number" required="required">
+		</div>
+		<div class="info">
+			<button>Insert</button>
+		</div>
+	</form>
+</body>
+</html>

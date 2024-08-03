@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Data</title>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+</head>
+<body>
+<h3 th:if="${success}" th:text="${success}" style="color: green"></h3>
+	<div class="btn">
+		<a href="/insert"><button>Insert</button></a>
+		<a href="/fetch"><button>Fetch</button></a>
+	</div>
+	<br><br>
+	<div class="btn" th:if="${fetch}">
+		<a href="/fetch/name"><button>Fetch Records by Name</button></a>
+		<a href="/fetch/mobile"><button>Fetch Records by Mobile</button></a>
+		<a href="/fetch/gender"><button>Fetch Records by Gender</button></a>
+		<a href="/fetch/marks"><button>Fetch Records by Marks</button></a>
+	</div>
+	
+	<div class="fetch-field" th:if="${field}">
+	<form th:action="'/fetch/'+${field}" method="post">
+			<h2>Search by <span th:text="${field}"></span></h2>
+			<input th:placeholder="'Enter ' + ${field}" th:name="${field}" required/>
+			<button type="submit">Search</button>
+		</form>
+	</div>
+	<table>
+		<tr>
+			<th>Name</th>
+			<th>Mobile</th>
+			<th>Gender</th>
+			<th>Maths</th>
+			<th>Physics</th>
+			<th>Chemistry</th>
+			<th>English</th>
+			<th>Percentage</th>
+			<th colspan="2">Update / Remove</th>
+		</tr>
+		<tr th:each="student : ${list}">
+			<td th:text="${student.name}"></td>
+			<td th:text="${student.mobile}"></td>
+			<td th:text="${student.gender}"></td>
+			<td th:text="${student.math}"></td>
+			<td th:text="${student.physics}"></td>
+			<td th:text="${student.chemistry}"></td>
+			<td th:text="${student.english}"></td>
+			<td th:text="${(student.math+student.physics+student.chemistry+student.english)/4.0}"></td>
+			<td><a th:href="'/edit/'+${student.id}"><button>Edit</button></a></td>
+			<td><a th:href="'/delete/'+${student.id}"><button>Delete</button></a></td>
+		</tr>
+	</table>
+	<br><br>
+	<div class="insert"  th:if="${insert}">
+	
+	<form action="/update" th:object="${student}" method="post">
+		<div class="info">
+			Name : <input name="name" type="text" required="required">
+		</div>
+		<div class="info">
+			Mobile : <input name="mobile" type="tel" required="required">
+		</div>
+		<div class="info">
+			Gender : Male<input name="gender" type="radio" value="Male"
+				required="required"> Female<input name="gender" type="radio"
+				value="Female" required="required">
+		</div>
+		<div class="info">Marks</div>
+		<div class="info">
+			Maths: <input name="math" type="number" required="required">
+		</div>
+		<div class="info">
+			Physics : <input name="physics" type="number" required="required">
+		</div>
+		<div class="info">
+			Chemistry : <input name="chemistry" type="number" required="required">
+		</div>
+		<div class="info">
+			English : <input name="english" type="number" required="required">
+		</div>
+		<div class="info">
+			<button>Insert</button>
+		</div>
+	</form>
+	<a th:if="${insert}" href="/"><button>Home</button></a>
+	</div>
+	
+<div th:if="${update}" class="update">
+	<form  action="/update" th:object="${student}" method="post">
+		<div class="info">
+		<input type="hidden" name="id" th:field="*{id}" />
+			Name : <input name="name" th:field="*{name}" type="text" required="required">
+		</div>
+		<div class="info">
+			Mobile : <input name="mobile" th:field="*{mobile}" value="" type="tel" required="required">
+		</div>
+		<div class="info">
+			Gender : Male<input name="gender" type="radio" th:field="*{gender}" value="Male" required="required"> 
+				Female<input name="gender" type="radio" value="Female" th:field="*{gender}" required="required">
+		</div>
+		<div class="info">Marks</div>
+		<div class="info">
+			Maths: <input name="math" type="number" required="required" th:field="*{math}">
+		</div>
+		<div class="info">
+			Physics : <input name="physics" type="number" required="required" th:field="*{physics}">
+		</div>
+		<div class="info">
+			Chemistry : <input name="chemistry" type="number" required="required" th:field="*{chemistry}">
+		</div>
+		<div class="info">
+			English : <input name="english" type="number" required="required" th:field="*{english}">
+		</div>
+		<br>
+		<div class="info">
+			<button>Update</button>
+		</div>
+	</form>
+	<br><br>
+	<a th:if="${update}" href="/"><button>Home</button></a>
+</div>
+
+</body>
+</html>
